@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "503392359389",
+    "project_id": "task-management-d9a13",
+    "storage_bucket": "task-management-d9a13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503392359389:android:e072cd68de5f332ee1dc34",
+        "android_client_info": {
+          "package_name": "com.example.aiocalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArdcgm62SPQJHTZyOmkEQ9zp5rVLRSbFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
