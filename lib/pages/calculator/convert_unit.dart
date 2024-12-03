@@ -25,53 +25,91 @@ class _UnitConversionPageState extends State<UnitConversionPage> {
   void convert() {
     double result = 0.0;
 
-    // Konversi untuk kategori Jarak
-    if (kategori == 'Jarak') {
-      if (dariSatuan == 'meter' && keSatuan == 'sentimeter') {
-        result = inputValue * 100;
-      } else if (dariSatuan == 'meter' && keSatuan == 'kilometer') {
-        result = inputValue / 1000;
-      } else if (dariSatuan == 'sentimeter' && keSatuan == 'meter') {
-        result = inputValue / 100;
-      } else if (dariSatuan == 'kilometer' && keSatuan == 'meter') {
-        result = inputValue * 1000;
-      }
+  // Konversi untuk kategori Jarak
+  if (kategori == 'Jarak') {
+    if (dariSatuan == 'meter' && keSatuan == 'sentimeter') {
+      result = inputValue * 100;
+    } else if (dariSatuan == 'meter' && keSatuan == 'kilometer') {
+      result = inputValue / 1000;
+    } else if (dariSatuan == 'sentimeter' && keSatuan == 'meter') {
+      result = inputValue / 100;
+    } else if (dariSatuan == 'kilometer' && keSatuan == 'meter') {
+      result = inputValue * 1000;
+    } else if (dariSatuan == 'meter' && keSatuan == 'mil') {
+      result = inputValue / 1609.34; // 1 mil = 1609.34 meter
+    } else if (dariSatuan == 'mil' && keSatuan == 'meter') {
+      result = inputValue * 1609.34;
+    } else if (dariSatuan == 'meter' && keSatuan == 'yard') {
+      result = inputValue * 1.09361; // 1 meter = 1.09361 yard
+    } else if (dariSatuan == 'yard' && keSatuan == 'meter') {
+      result = inputValue / 1.09361;
+    } else if (dariSatuan == 'meter' && keSatuan == 'inci') {
+      result = inputValue * 39.3701; // 1 meter = 39.3701 inci
+    } else if (dariSatuan == 'inci' && keSatuan == 'meter') {
+      result = inputValue / 39.3701;
     }
+  }
 
-    // Konversi untuk kategori Berat
-    else if (kategori == 'Berat') {
-      if (dariSatuan == 'gram' && keSatuan == 'kilogram') {
-        result = inputValue / 1000;
-      } else if (dariSatuan == 'kilogram' && keSatuan == 'gram') {
-        result = inputValue * 1000;
-      }
+    // logika konversi Berat
+  // Konversi untuk kategori Berat (disempurnakan sebelumnya)
+  else if (kategori == 'Berat') {
+    if (dariSatuan == 'gram' && keSatuan == 'kilogram') {
+      result = inputValue / 1000;
+    } else if (dariSatuan == 'kilogram' && keSatuan == 'gram') {
+      result = inputValue * 1000;
+    } else if (dariSatuan == 'kilogram' && keSatuan == 'ons') {
+      result = inputValue * 35.274; // 1 kg = 35.274 ons
+    } else if (dariSatuan == 'kilogram' && keSatuan == 'pon') {
+      result = inputValue / 0.453592;
+    } else if (dariSatuan == 'ons' && keSatuan == 'kilogram') {
+      result = inputValue / 35.274;
+    } else if (dariSatuan == 'ons' && keSatuan == 'gram') {
+      result = inputValue * 28.35;
+    } else if (dariSatuan == 'gram' && keSatuan == 'ons') {
+      result = inputValue / 28.35; // 1 ons = 28.35 gram
+    } else if (dariSatuan == 'pon' && keSatuan == 'kilogram') {
+      result = inputValue * 0.453592; // 1 pon = 0.453592 kg
     }
+  }
 
-    // Konversi untuk kategori Suhu
-    else if (kategori == 'Suhu') {
-      if (dariSatuan == 'Celsius' && keSatuan == 'Fahrenheit') {
-        result = (inputValue * 9 / 5) + 32;
-      } else if (dariSatuan == 'Celsius' && keSatuan == 'Kelvin') {
-        result = inputValue + 273.15;
-      } else if (dariSatuan == 'Fahrenheit' && keSatuan == 'Celsius') {
-        result = (inputValue - 32) * 5 / 9;
-      } else if (dariSatuan == 'Kelvin' && keSatuan == 'Celsius') {
-        result = inputValue - 273.15;
-      }
+
+  // Konversi untuk kategori Suhu
+  else if (kategori == 'Suhu') {
+    if (dariSatuan == 'Celsius' && keSatuan == 'Fahrenheit') {
+      result = (inputValue * 9 / 5) + 32;
+    } else if (dariSatuan == 'Celsius' && keSatuan == 'Kelvin') {
+      result = inputValue + 273.15;
+    } else if (dariSatuan == 'Fahrenheit' && keSatuan == 'Celsius') {
+      result = (inputValue - 32) * 5 / 9;
+    } else if (dariSatuan == 'Fahrenheit' && keSatuan == 'Kelvin') {
+      result = (inputValue - 32) * 5 / 9 + 273.15;
+    } else if (dariSatuan == 'Kelvin' && keSatuan == 'Celsius') {
+      result = inputValue - 273.15;
+    } else if (dariSatuan == 'Kelvin' && keSatuan == 'Fahrenheit') {
+      result = (inputValue - 273.15) * 9 / 5 + 32;
     }
+  }
 
     // Konversi untuk kategori Waktu
     else if (kategori == 'Waktu') {
-      if (dariSatuan == 'detik' && keSatuan == 'menit') {
-        result = inputValue / 60;
-      } else if (dariSatuan == 'detik' && keSatuan == 'jam') {
-        result = inputValue / 3600;
-      } else if (dariSatuan == 'menit' && keSatuan == 'detik') {
-        result = inputValue * 60;
-      } else if (dariSatuan == 'jam' && keSatuan == 'detik') {
-        result = inputValue * 3600;
-      }
+    if (dariSatuan == 'detik' && keSatuan == 'menit') {
+      result = inputValue / 60;
+    } else if (dariSatuan == 'detik' && keSatuan == 'jam') {
+      result = inputValue / 3600;
+    } else if (dariSatuan == 'menit' && keSatuan == 'detik') {
+      result = inputValue * 60;
+    } else if (dariSatuan == 'menit' && keSatuan == 'jam') {
+      result = inputValue / 60;
+    } else if (dariSatuan == 'jam' && keSatuan == 'detik') {
+      result = inputValue * 3600;
+    } else if (dariSatuan == 'jam' && keSatuan == 'menit') {
+      result = inputValue * 60;
+    } else if (dariSatuan == 'hari' && keSatuan == 'jam') {
+      result = inputValue * 24;
+    } else if (dariSatuan == 'jam' && keSatuan == 'hari') {
+      result = inputValue / 24;
     }
+  }
 
     setState(() {
       hasilKonversi = result;
