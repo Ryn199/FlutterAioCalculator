@@ -1,6 +1,9 @@
 import 'package:aiocalculator/calculator_cubit.dart';
+import 'package:aiocalculator/pages/calculator/historyPage.dart';
+// import 'package:aiocalculator/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class BasicCalculatorPage extends StatelessWidget {
   const BasicCalculatorPage({super.key});
@@ -13,11 +16,16 @@ class BasicCalculatorPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Basic Calculator'),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
+  IconButton(
+    icon: const Icon(Icons.home),
+    onPressed: () => context.go('/'),
+  ),
+  IconButton(
+    icon: const Icon(Icons.history),
+    onPressed: () => context.go('/history'),
+  ),
+],
+
         ),
         body: BlocBuilder<CalculatorCubit, String>(
           builder: (context, state) {

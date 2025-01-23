@@ -7,6 +7,7 @@ import 'package:aiocalculator/pages/calculator/convert_currency.dart';
 import 'package:aiocalculator/pages/calculator/convert_timezone.dart';
 import 'package:aiocalculator/pages/calculator/convert_unit.dart';
 import 'package:aiocalculator/pages/calculator/download_time_calculator.dart';
+import 'package:aiocalculator/pages/calculator/historyPage.dart';
 import 'package:aiocalculator/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const HomePage(),
       routes: [
         GoRoute(
-          path: '/calculator',
+          path: 'calculator',
           name: 'calculator',
           builder: (context, state) => const BasicCalculatorPage(),
         ),
@@ -79,6 +80,12 @@ final GoRouter router = GoRouter(
           name: 'downloadgagal',
           builder: (context, state) => DownloadTimeCalculator2(),
         ),
+        GoRoute(
+          path: '/history',
+          name: 'history',
+          builder: (context, state) => HistoryPage(),
+        ),
+
       ],
     ),
   ],

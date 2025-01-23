@@ -1,17 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CalculatorCubit extends Cubit<String> {
   CalculatorCubit() : super('0');
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   String _input = '';
   String _lastResult = '';
-
   final NumberFormat _formatter = NumberFormat.decimalPattern();
 
   void appendInput(String value) {
     if (value == '<') {
+      // Hapus karakter terakhir
       if (_input.isNotEmpty) {
         _input = _input.substring(0, _input.length - 1);
       }
@@ -20,15 +25,24 @@ class CalculatorCubit extends Cubit<String> {
       }
       emit(_formattedOutput(_input));
     } else if (value == '=') {
+      // Evaluasi ekspresi
       try {
         final result = _evaluateExpression(_input.isEmpty ? _lastResult : _input);
         _lastResult = result;
+
+        // Simpan history ke Firebase dengan userId
+        _saveHistoryToFirebase(
+          _input.isEmpty ? _lastResult : _input,
+          result,
+        );
+
         emit(_formattedOutput(result));
         _input = '';
       } catch (e) {
         emit('Error');
       }
     } else if (_isOperator(value)) {
+      // Tambahkan operator jika valid
       if (_input.isEmpty && _lastResult.isNotEmpty) {
         _input = _lastResult + value;
       } else if (_input.isNotEmpty && !_isOperator(_input[_input.length - 1])) {
@@ -36,6 +50,7 @@ class CalculatorCubit extends Cubit<String> {
       }
       emit(_formattedOutput(_input));
     } else {
+      // Tambahkan angka atau input lainnya
       if (_input == '0') {
         _input = value;
       } else {
@@ -74,6 +89,29 @@ class CalculatorCubit extends Cubit<String> {
       return value;
     } catch (e) {
       return value;
+    }
+  }
+
+  Future<void> _saveHistoryToFirebase(String expression, String result) async {
+    try {
+      // Ambil user ID dari pengguna yang login
+      final currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        print('No user is logged in.');
+        return;
+      }
+
+      final userId = currentUser.uid;
+
+      // Simpan data ke Firestore
+      await _firestore.collection('history').add({
+        'userId': userId,
+        'expression': expression,
+        'result': result,
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      print('Failed to save history: $e');
     }
   }
 }
