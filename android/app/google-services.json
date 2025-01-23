@@ -12,7 +12,12 @@
           "package_name": "com.example.aiocalculator"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "503392359389-j233i1c3os0dbcvicmi1rkk5ora1u9ed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyArdcgm62SPQJHTZyOmkEQ9zp5rVLRSbFU"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503392359389-j233i1c3os0dbcvicmi1rkk5ora1u9ed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
